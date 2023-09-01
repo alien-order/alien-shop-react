@@ -1,15 +1,22 @@
-function Detail() {
+import { useParams } from "react-router-dom";
+
+function Detail(props) {
+    let {id} = useParams();
+    let shoe = props.shoes.find((item) => {
+        return item.id == id
+    });
+
     return (
         <div className="container">
             <div className="row">
                 <div className="col-md-6">
-                    <img src="https://codingapple1.github.io/shop/shoes1.jpg" width="100%" />
+                    <img src={shoe.img} width="100%" />
 
                 </div>
                 <div className="col-md-6 mt-4">
-                    <h4 className="pt-5">상품명</h4>
-                    <p>상품설명</p>
-                    <p>1200000원</p>
+                    <h4 className="pt-5">{ shoe.title }</h4>
+                    <p>{ shoe.content }</p>
+                    <p>{ shoe.price }</p>
                     <button className="btn btn-danger">주문하기</button>
                 </div>
             </div>

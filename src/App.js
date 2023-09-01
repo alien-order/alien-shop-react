@@ -35,7 +35,7 @@ function App() {
             {
               shoes.map((shoe, i) => {
                 return (
-                  <Card shoe={shoe}></Card>
+                  <Card shoe={shoe} key={i}></Card>
                 )
               })
             }
@@ -81,7 +81,7 @@ function About() {
 
 function Card(props){
   return (
-    <div className="col-md-4">
+    <div key={props.key} className="col-md-4">
       <img src={ props.shoe.img } width="80%"/>
       <h4>{props.shoe.name}</h4>
       <p>{props.shoe.price}</p>

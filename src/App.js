@@ -26,37 +26,22 @@ function App() {
           {
             shoes.map((shoe, i) => {
               return (
-                <Item name={shoe.name} price={shoe.price} id={shoe.id}></Item>
+                <Card shoe={shoe}></Card>
               )
             })
           }
-          {/* <div className="col-md-4">
-            <img src={ process.env.PUBLIC_URL + '/img/picture1.jpeg' } width="80%"/>
-            <h4>상품명</h4>
-            <p>상품설명</p>
-          </div>
-          <div className="col-md-4">
-            <img src={ process.env.PUBLIC_URL + '/img/picture2.jpeg' } width="80%"/>
-            <h4>상품명</h4>
-            <p>상품설명</p>
-          </div>
-          <div className="col-md-4">
-            <img src={ process.env.PUBLIC_URL + '/img/picture3.jpeg' } width="80%"/>
-            <h4>상품명</h4>
-            <p>상품설명</p>
-          </div> */}
         </div>
       </div>
     </div>
   );
 }
 
-function Item(props){
+function Card(props){
   return (
     <div className="col-md-4">
-      <img src={ process.env.PUBLIC_URL + '/img/picture' + (props.id + 1) + '.jpeg' } width="80%"/>
-      <h4>{props.name}</h4>
-      <p>{props.price}</p>
+      <img src={ process.env.PUBLIC_URL + '/img/' + props.shoe.img } width="80%"/>
+      <h4>{props.shoe.name}</h4>
+      <p>{props.shoe.price}</p>
     </div>
   )
 }

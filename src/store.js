@@ -11,17 +11,17 @@ let cart = createSlice({
         plusCount(state, action){
             state[action.payload].count += 1;
         },
-        addCart(state, action){
-            let addItem = {id : state.length, name : action.payload.title, count : 1};
-            state.push(addItem);
+        addItem(state, action){
+            state.push(action.payload);
         },
         addCount(state, action){
-            state[action.payload].count++;
+            let idx = state.findIndex((a)=>{ return a.id === action.payload })
+            state[idx].count++;
         }
     }
 })
 
-export let { plusCount, addCart, addCount } = cart.actions;
+export let { plusCount, addItem, addCount } = cart.actions;
 
 export default configureStore({
     reducer: {

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { addCart } from "./store.js";
+import { addItem } from "./store.js";
 import { useDispatch } from "react-redux";
 
 function Detail(props) {
@@ -14,6 +14,14 @@ function Detail(props) {
     let [userInput, setUserInput] = useState('');
     let dipatch = useDispatch();
     
+    useEffect(() => {
+        let watched = JSON.parse(localStorage.getItem('watched'));
+        watched = new Set(watched);
+        watched = Array.from(watched);
+        watched.push(shoe.id);
+        localStorage.setItem('watched', JSON.stringify(watched));
+    }, []);
+
     useEffect(() => {
         let a = setTimeout(() => {
             setView(false);
@@ -58,8 +66,8 @@ function Detail(props) {
                     <p>{ shoe.content }</p>
                     <p>{ shoe.price }</p>
                     <button className="btn btn-danger" onClick={() => {
-                        let copy = shoe;
-                        dipatch(addCart(shoe));
+                        let copy = {id : 2, name : shoe.title, count : 1};
+                        dipatch(addItem(copy));
                     }}>주문하기</button>
                 </div>
             </div>

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './App.css';
 import { Navbar, Nav, Container } from 'react-bootstrap';
 import data from './data.js';
@@ -7,8 +7,17 @@ import Detail from './Detail.js';
 import Cart from './routes/Cart.js';
 
 function App() {
+  let obj = {name : 'kim'};
+  let jsonObj = JSON.stringify(obj);
+  localStorage.setItem('data', jsonObj);
+
   let [shoes] = useState(data);
   let navigate = useNavigate();
+
+  useEffect(() => { 
+    localStorage.removeItem('watched');
+    localStorage.setItem('watched', JSON.stringify([]));
+  }, []);
 
   return (
     <div className="App">
@@ -85,9 +94,12 @@ function About() {
 function Card(props){
   return (
     <div key={props.key} className="col-md-4">
-      <img src={ props.shoe.img } width="80%"/>
+      <a href={ 'detail/' + props.shoe.id }>
+        <img src={ props.shoe.img } width="80%"/>
+      </a>
       <h4>{props.shoe.name}</h4>
       <p>{props.shoe.price}</p>
+
     </div>
   )
 }

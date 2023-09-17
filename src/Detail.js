@@ -15,12 +15,13 @@ function Detail(props) {
     let dipatch = useDispatch();
     
     useEffect(() => {
-        let watched = JSON.parse(localStorage.getItem('watched'));
+        let watched = localStorage.getItem('watched');
+        watched = JSON.parse(watched);
+        watched.push(parseInt(shoe.id));
         watched = new Set(watched);
         watched = Array.from(watched);
-        watched.push(shoe.id);
         localStorage.setItem('watched', JSON.stringify(watched));
-    }, []);
+      }, []);
 
     useEffect(() => {
         let a = setTimeout(() => {

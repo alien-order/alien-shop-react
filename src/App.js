@@ -9,9 +9,6 @@ import { useQuery } from 'react-query';
 import axios from 'axios';
 
 function App() {
-  let obj = {name : 'kim'};
-  let jsonObj = JSON.stringify(obj);
-  localStorage.setItem('data', jsonObj);
 
   let [shoes] = useState(data);
   let navigate = useNavigate();
@@ -23,9 +20,10 @@ function App() {
     { staleTime : 2000 }
   );
   
-  useEffect(() => { 
-    localStorage.removeItem('watched');
-    localStorage.setItem('watched', JSON.stringify([]));
+  useEffect(() => {
+    if(!localStorage.getItem('watched')){
+
+    }
   }, []);
 
   return (

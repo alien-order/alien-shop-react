@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { addItem } from "./store.js";
+import { addItem } from "../store.js";
 import { useDispatch } from "react-redux";
 
 function Detail(props) {

@@ -1,12 +1,15 @@
-import { useEffect, useState } from 'react';
+import { lazy, Suspense, useEffect, useState } from 'react';
 import './App.css';
 import { Navbar, Nav, Container } from 'react-bootstrap';
 import data from './data.js';
 import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom';
-import Detail from './Detail.js';
-import Cart from './routes/Cart.js';
+// import Detail from './Detail.js';
+// import Cart from './routes/Cart.js';
 import { useQuery } from 'react-query';
 import axios from 'axios';
+
+const Detail = lazy(() => import('./routes/Detail.js'));
+const Cart = lazy(() => import('./routes/Cart.js'));
 
 function App() {
 
@@ -45,35 +48,37 @@ function App() {
       <div className="main-bg">
         <img src={ process.env.PUBLIC_URL + '/img/images.jpeg'}></img>
       </div>
-
-      <Routes>
-        <Route path="/" element={
-          <div className="container">
-            <div className="row">
-            {
-              shoes.map((shoe, i) => {
-                return (
-                  <Card shoe={shoe} key={i}></Card>
-                )
-              })
-            }
-            </div>
-         </div>
-        }></Route>
-        <Route path="/detail/:id" element={<Detail shoes={shoes}></Detail>}></Route>
-        <Route path="/about" element={<About />}>
-          <Route path="member" element={<div>멤버임</div>}></Route>
-          <Route path="location" element={<div>로케이션임</div>}></Route>
-        </Route>
-        <Route path="/cart" element={<Cart />}>
-        </Route>
-        <Route path="/event" element={<Event />}>
-          <Route path="one" element={<div>첫 주문시 양배추즙 서비스</div>}></Route>
-          <Route path="two" element={<div>생일기념 쿠폰받기</div>}></Route>
-        </Route>
-        <Route path="*" element={<div>없는 페이지에요</div>}></Route>
-        <Route></Route>
-      </Routes>
+      
+      <Suspense fallback={<div>로딩중임</div>}>
+        <Routes>
+          <Route path="/" element={
+            <div className="container">
+              <div className="row">
+              {
+                shoes.map((shoe, i) => {
+                  return (
+                    <Card shoe={shoe} key={i}></Card>
+                    )
+                  })
+                }
+              </div>
+          </div>
+          }></Route>
+          <Route path="/detail/:id" element={<Detail shoes={shoes}></Detail>}></Route>
+          <Route path="/about" element={<About />}>
+            <Route path="member" element={<div>멤버임</div>}></Route>
+            <Route path="location" element={<div>로케이션임</div>}></Route>
+          </Route>
+          <Route path="/cart" element={<Cart />}>
+          </Route>
+          <Route path="/event" element={<Event />}>
+            <Route path="one" element={<div>첫 주문시 양배추즙 서비스</div>}></Route>
+            <Route path="two" element={<div>생일기념 쿠폰받기</div>}></Route>
+          </Route>
+          <Route path="*" element={<div>없는 페이지에요</div>}></Route>
+          <Route></Route>
+        </Routes>
+      </Suspense>
       
     </div>
   );
